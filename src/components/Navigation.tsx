@@ -151,10 +151,6 @@ export const Navigation: React.FC = () => {
       </Logo>
       
       <NavLinks>
-        <NavLink href="#operations">OPERATIONS</NavLink>
-        <NavLink href="#protocols">PROTOCOLS</NavLink>
-        <NavLink href="#intelligence">INTELLIGENCE</NavLink>
-        <NavLink href="#deployment">DEPLOYMENT</NavLink>
       </NavLinks>
       
       <SystemStatus>

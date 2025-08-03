@@ -25,24 +25,6 @@ export const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     position: relative;
     
-    &::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: 
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(0, 255, 65, 0.01) 2px,
-          rgba(0, 255, 65, 0.01) 4px
-        );
-      pointer-events: none;
-      z-index: 1;
-    }
   }
 
   ::selection {

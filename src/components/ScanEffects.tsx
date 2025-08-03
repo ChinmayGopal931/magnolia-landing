@@ -217,9 +217,6 @@ export const ScanEffects: React.FC = () => {
       <NoiseOverlay />
       <GridOverlay />
       <VignetteOverlay />
-      <ScanContainer>
-        <ScanLine />
-      </ScanContainer>
       <CornerBrackets>
         <span />
       </CornerBrackets>

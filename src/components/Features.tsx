@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { motion } from 'framer-motion'
 import { theme } from '../theme'
 import { NetworkVisualization } from './NetworkVisualization'
-import { Radar } from './Radar'
 
 const FeaturesContainer = styled.section`
   padding: ${theme.spacing['4xl']} ${theme.spacing['2xl']};
@@ -179,9 +178,9 @@ const ProtocolGrid = styled.div`
   }
 `
 
-const ProtocolCard = styled(motion.div)`
+const ProtocolCard = styled(motion.div)<{ active?: boolean }>`
   background: ${theme.colors.primary.black};
-  border: 1px solid ${theme.colors.secondary.borderGray};
+  border: 1px solid ${props => props.active ? theme.colors.accent.militaryGreen : theme.colors.secondary.borderGray};
   padding: ${theme.spacing.lg};
   text-align: center;
   position: relative;
@@ -211,18 +210,30 @@ const ProtocolCard = styled(motion.div)`
   }
 `
 
-const ProtocolName = styled.div`
+const ProtocolName = styled.div<{ active?: boolean }>`
   font-family: ${theme.typography.fontFamily.mono};
   font-size: ${theme.typography.fontSize.sm};
   font-weight: ${theme.typography.fontWeight.thin};
   letter-spacing: ${theme.typography.letterSpacing.wider};
-  color: ${theme.colors.text.primary};
+  color: ${props => props.active ? theme.colors.accent.militaryGreen : theme.colors.text.primary};
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${theme.spacing.sm};
+`
+
+const StatusDot = styled.div<{ active?: boolean }>`
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: ${props => props.active ? theme.colors.accent.militaryGreen : theme.colors.secondary.borderGray};
+  box-shadow: ${props => props.active ? `0 0 8px ${theme.colors.accent.militaryGreen}` : 'none'};
 `
 
 const missions = [
   {
-    title: 'DELTA NEUTRAL OPERATIONS',
+    title: 'Project Magnolia',
     description: 'Execute market-neutral strategies across multiple chains with military precision. Maintain zero directional exposure while capturing yield spreads.',
     specs: [
       'REAL-TIME HEDGE CALCULATION',
@@ -232,7 +243,7 @@ const missions = [
     ]
   },
   {
-    title: 'TACTICAL YIELD OPTIMIZATION',
+    title: ' YIELD OPTIMIZATION',
     description: 'Deploy capital to highest-yielding protocols with strategic precision. Dynamic routing ensures maximum efficiency across all supported chains.',
     specs: [
       'APY AGGREGATION ENGINE',
@@ -264,9 +275,12 @@ const missions = [
 ]
 
 const protocols = [
-  'AAVE', 'COMPOUND', 'GMX', 'UNISWAP',
-  'CURVE', 'BALANCER', 'SUSHISWAP', 'PANCAKE',
-  'TRADER JOE', 'VELODROME', 'CAMELOT', 'RADIANT'
+  { name: 'HYPERLIQUID', active: true },
+  { name: 'DRIFT', active: true },
+  { name: 'GMX', active: false },
+  { name: 'PARADEX', active: false },
+  { name: 'LIGHTER', active: false },
+  { name: 'HyperUnit', active: false },
 ]
 
 export const Features: React.FC = () => {
@@ -275,7 +289,7 @@ export const Features: React.FC = () => {
       <ContentWrapper>
         <SectionHeader>
           <SectionCode>SECTOR A-7</SectionCode>
-          <SectionTitle>TACTICAL CAPABILITIES</SectionTitle>
+          <SectionTitle>Features</SectionTitle>
         </SectionHeader>
         
         <MissionGrid>
@@ -314,14 +328,6 @@ export const Features: React.FC = () => {
           <NetworkVisualization />
         </VisualizationSection>
         
-        <VisualizationSection>
-          <SectionHeader>
-            <SectionCode>SECTOR C-9</SectionCode>
-            <SectionTitle>ASSET TRACKING SYSTEM</SectionTitle>
-          </SectionHeader>
-          
-          <Radar />
-        </VisualizationSection>
         
         <SectionHeader>
           <SectionCode>SECTOR D-2</SectionCode>
@@ -332,13 +338,17 @@ export const Features: React.FC = () => {
           {protocols.map((protocol, index) => (
             <ProtocolCard
               key={index}
+              active={protocol.active}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
               whileHover={{ scale: 1.05 }}
             >
-              <ProtocolName>{protocol}</ProtocolName>
+              <ProtocolName active={protocol.active}>
+                <StatusDot active={protocol.active} />
+                {protocol.name}
+              </ProtocolName>
             </ProtocolCard>
           ))}
         </ProtocolGrid>

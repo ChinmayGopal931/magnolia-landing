@@ -28,42 +28,7 @@ const BackgroundGrid = styled.div`
   opacity: 0.5;
 `
 
-const ScanLine = styled(motion.div)`
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(0, 255, 65, 0.4),
-    transparent
-  );
-  left: 0;
-`
 
-const Classification = styled.div`
-  position: absolute;
-  top: ${theme.spacing['2xl']};
-  left: ${theme.spacing['2xl']};
-  font-family: ${theme.typography.fontFamily.mono};
-  font-size: ${theme.typography.fontSize.xs};
-  font-weight: ${theme.typography.fontWeight.thin};
-  letter-spacing: ${theme.typography.letterSpacing.widest};
-  color: ${theme.colors.text.tertiary};
-  text-transform: uppercase;
-  
-  &::before {
-    content: '[';
-    color: ${theme.colors.accent.militaryGreen};
-    margin-right: 4px;
-  }
-  
-  &::after {
-    content: ']';
-    color: ${theme.colors.accent.militaryGreen};
-    margin-left: 4px;
-  }
-`
 
 const MainContent = styled.div`
   text-align: center;
@@ -198,26 +163,13 @@ const CTAButton = styled(motion.button)`
   }
 `
 
-const SecondaryButton = styled(CTAButton)`
-  border-color: ${theme.colors.secondary.borderGray};
-  color: ${theme.colors.text.secondary};
-  
-  &::before {
-    background: ${theme.colors.secondary.darkGray};
-  }
-  
-  &:hover {
-    color: ${theme.colors.text.primary};
-    border-color: ${theme.colors.secondary.darkGray};
-  }
-`
 
 export const Hero: React.FC = () => {
   const [stats, setStats] = useState({
     chains: 7,
     tvl: 0,
     positions: 0,
-    apy: 0
+    apy: '0.00'
   })
   
   useEffect(() => {
@@ -237,13 +189,6 @@ export const Hero: React.FC = () => {
     <HeroContainer>
       <BackgroundGrid />
       
-      <ScanLine
-        initial={{ y: '-100%' }}
-        animate={{ y: '100vh' }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-      />
-      
-      <Classification>CLASSIFICATION: UNCLASSIFIED</Classification>
       
       <MainContent>
         <OperationHeader>
@@ -307,15 +252,9 @@ export const Hero: React.FC = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            INITIATE DEPLOYMENT
+            Launch APP
           </CTAButton>
-          
-          <SecondaryButton
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            ACCESS INTELLIGENCE
-          </SecondaryButton>
+        
         </CTAContainer>
       </MainContent>
     </HeroContainer>

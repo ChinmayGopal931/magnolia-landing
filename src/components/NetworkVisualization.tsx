@@ -28,38 +28,36 @@ interface Node {
 }
 
 const nodes: Node[] = [
-  { id: 'eth', x: 400, y: 200, label: 'ETH', active: true },
-  { id: 'arb', x: 250, y: 100, label: 'ARB', active: true },
-  { id: 'op', x: 550, y: 100, label: 'OP', active: true },
-  { id: 'polygon', x: 200, y: 250, label: 'POLY', active: true },
-  { id: 'avax', x: 600, y: 250, label: 'AVAX', active: true },
-  { id: 'bsc', x: 300, y: 350, label: 'BSC', active: false },
-  { id: 'sol', x: 500, y: 350, label: 'SOL', active: true },
+  { id: 'hyperliquid', x: 300, y: 150, label: 'HYPERLIQUID', active: true },
+  { id: 'drift', x: 500, y: 150, label: 'DRIFT', active: true },
+  { id: 'gmx', x: 200, y: 250, label: 'GMX', active: false },
+  { id: 'paradex', x: 400, y: 300, label: 'PARADEX', active: false },
+  { id: 'lighter', x: 600, y: 250, label: 'LIGHTER', active: false },
+  { id: 'HyperUnit', x: 400, y: 50, label: 'HyperUnit', active: false },
 ]
 
 const connections = [
-  { from: 'eth', to: 'arb' },
-  { from: 'eth', to: 'op' },
-  { from: 'eth', to: 'polygon' },
-  { from: 'eth', to: 'avax' },
-  { from: 'arb', to: 'polygon' },
-  { from: 'op', to: 'avax' },
-  { from: 'polygon', to: 'bsc' },
-  { from: 'avax', to: 'sol' },
-  { from: 'bsc', to: 'sol' },
+  { from: 'hyperliquid', to: 'drift' },
+  { from: 'hyperliquid', to: 'gmx' },
+  { from: 'drift', to: 'lighter' },
+  { from: 'HyperUnit', to: 'hyperliquid' },
+  { from: 'HyperUnit', to: 'drift' },
+  { from: 'gmx', to: 'paradex' },
+  { from: 'paradex', to: 'lighter' },
 ]
 
 export const NetworkVisualization: React.FC = () => {
   const svgRef = useRef<SVGSVGElement>(null)
   
+  // Keep Hyperliquid and Drift always active, others inactive
   useEffect(() => {
-    const interval = setInterval(() => {
-      nodes.forEach(node => {
-        node.active = Math.random() > 0.2
-      })
-    }, 3000)
-    
-    return () => clearInterval(interval)
+    nodes.forEach(node => {
+      if (node.id === 'hyperliquid' || node.id === 'drift') {
+        node.active = true
+      } else {
+        node.active = false
+      }
+    })
   }, [])
   
   return (
@@ -189,28 +187,7 @@ export const NetworkVisualization: React.FC = () => {
           </g>
         ))}
         
-        <text
-          x="10"
-          y="20"
-          fill={theme.colors.text.tertiary}
-          fontSize="10"
-          fontFamily={theme.typography.fontFamily.mono}
-          letterSpacing={theme.typography.letterSpacing.wider}
-        >
-          NETWORK STATUS: OPERATIONAL
-        </text>
-        
-        <text
-          x="790"
-          y="20"
-          textAnchor="end"
-          fill={theme.colors.accent.militaryGreen}
-          fontSize="10"
-          fontFamily={theme.typography.fontFamily.mono}
-          letterSpacing={theme.typography.letterSpacing.wider}
-        >
-          LATENCY: {Math.floor(Math.random() * 50 + 10)}MS
-        </text>
+ 
       </StyledSVG>
     </SVGContainer>
   )
