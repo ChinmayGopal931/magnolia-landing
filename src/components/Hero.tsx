@@ -190,7 +190,7 @@ export const Hero: React.FC = () => {
               marginTop: theme.spacing.sm 
             }}
           >
-            Automated arbitrage detection • Real-time funding spreads • Multi-exchange optimization
+            Automated arbitrage detection • Real-time funding spreads • Multi-exchange aggregation
           </OperationSubtitle>
         </OperationHeader>
         
