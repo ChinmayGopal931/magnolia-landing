@@ -2,14 +2,7 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { theme } from '../theme'
 
-const scanAnimation = keyframes`
-  0% {
-    transform: translateY(-100vh);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
-`
+
 
 const noiseAnimation = keyframes`
   0%, 100% {
@@ -44,58 +37,7 @@ const noiseAnimation = keyframes`
   }
 `
 
-const ScanContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 9999;
-  overflow: hidden;
-`
 
-const ScanLine = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(0, 255, 65, 0.3),
-    rgba(0, 255, 65, 0.5),
-    rgba(0, 255, 65, 0.3),
-    transparent
-  );
-  animation: ${scanAnimation} 12s linear infinite;
-  opacity: 0.7;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: rgba(0, 255, 65, 0.8);
-    filter: blur(1px);
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 0;
-    right: 0;
-    height: 20px;
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      rgba(0, 255, 65, 0.1),
-      transparent
-    );
-  }
-`
 
 const NoiseOverlay = styled.div`
   position: fixed;
