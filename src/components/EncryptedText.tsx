@@ -22,7 +22,7 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
 }) => {
   const [displayText, setDisplayText] = useState(text)
   const [isHovered, setIsHovered] = useState(false)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<number | null>(null)
   
   const chars = '!@#$%^&*()_+-={}[]|:;<>,.?/~`0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
   
