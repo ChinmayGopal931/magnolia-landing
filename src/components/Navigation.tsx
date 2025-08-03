@@ -69,34 +69,6 @@ const NavLinks = styled.div`
   gap: ${theme.spacing.xl};
 `
 
-const NavLink = styled.a`
-  font-size: ${theme.typography.fontSize.sm};
-  font-weight: ${theme.typography.fontWeight.extraLight};
-  letter-spacing: ${theme.typography.letterSpacing.wider};
-  text-transform: uppercase;
-  color: ${theme.colors.text.secondary};
-  position: relative;
-  transition: ${theme.transitions.fast};
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: ${theme.colors.accent.militaryGreen};
-    transition: ${theme.transitions.fast};
-  }
-  
-  &:hover {
-    color: ${theme.colors.accent.militaryGreen};
-    
-    &::after {
-      width: 100%;
-    }
-  }
-`
 
 const SystemStatus = styled.div`
   display: flex;
