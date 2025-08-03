@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { motion } from 'framer-motion'
 import { theme } from '../theme'
 import { NetworkVisualization } from './NetworkVisualization'
+import { EncryptedText } from './EncryptedText'
 
 const FeaturesContainer = styled.section`
   padding: ${theme.spacing['4xl']} ${theme.spacing['2xl']};
@@ -21,15 +22,6 @@ const SectionHeader = styled.div`
   position: relative;
 `
 
-const SectionCode = styled.div`
-  font-family: ${theme.typography.fontFamily.mono};
-  font-size: ${theme.typography.fontSize.xs};
-  font-weight: ${theme.typography.fontWeight.thin};
-  letter-spacing: ${theme.typography.letterSpacing.widest};
-  color: ${theme.colors.accent.militaryGreen};
-  text-transform: uppercase;
-  margin-bottom: ${theme.spacing.sm};
-`
 
 const SectionTitle = styled.h2`
   font-size: ${theme.typography.fontSize['3xl']};
@@ -49,7 +41,7 @@ const SectionTitle = styled.h2`
   }
 `
 
-const MissionGrid = styled.div`
+const FeatureGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: ${theme.spacing['2xl']};
@@ -65,21 +57,10 @@ const MissionBrief = styled(motion.div)`
   border: 1px solid ${theme.colors.secondary.borderGray};
   padding: ${theme.spacing.xl};
   position: relative;
+  transition: ${theme.transitions.fast};
   
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: ${theme.colors.accent.militaryGreen};
-    opacity: 0;
-    transition: ${theme.transitions.fast};
-  }
-  
-  &:hover::before {
-    opacity: 1;
+  &:hover {
+    border-color: ${theme.colors.accent.militaryGreen};
   }
 `
 
@@ -96,34 +77,16 @@ const MissionIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid ${theme.colors.accent.militaryGreen};
-  position: relative;
-  
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border: 1px solid ${theme.colors.accent.militaryGreen};
-  }
-  
-  &::before {
-    top: -4px;
-    left: -4px;
-  }
-  
-  &::after {
-    bottom: -4px;
-    right: -4px;
-  }
+  border: 1px solid ${theme.colors.secondary.borderGray};
+  border-radius: 4px;
 `
 
 const MissionIconInner = styled.div`
   width: 20px;
   height: 20px;
   background: ${theme.colors.accent.militaryGreen};
-  opacity: 0.2;
+  opacity: 0.3;
+  border-radius: 2px;
 `
 
 const MissionTitle = styled.h3`
@@ -234,52 +197,52 @@ const StatusDot = styled.div<{ active?: boolean }>`
 const missions = [
   {
     title: 'Project Magnolia',
-    description: 'Execute market-neutral strategies across multiple chains with military precision. Maintain zero directional exposure while capturing yield spreads.',
+    description: 'Execute market-neutral strategies across multiple chains to farm OI. Maintain zero directional exposure while capturing yield spreads.',
     specs: [
-      'REAL-TIME HEDGE CALCULATION',
-      'CROSS-CHAIN POSITION SYNC',
-      'AUTOMATED REBALANCING',
-      'RISK EXPOSURE MONITORING'
+      'Real-time hedge calculation',
+      'Cross-chain position sync',
+      'Automated rebalancing',
+      'Risk exposure monitoring'
     ]
   },
   {
-    title: ' YIELD OPTIMIZATION',
-    description: 'Deploy capital to highest-yielding protocols with strategic precision. Dynamic routing ensures maximum efficiency across all supported chains.',
+    title: 'FUNDING OPTIMIZATION',
+    description: 'Optimise your position by dynamically chaniging underlying assets based on funding rates. ',
     specs: [
-      'APY AGGREGATION ENGINE',
-      'GAS-OPTIMIZED ROUTING',
-      'SLIPPAGE PROTECTION',
-      'COMPOUND FREQUENCY OPTIMIZATION'
+      'APY aggregation engine',
+      'Gas-optimized routing',
+      'Slippage protection',
+      'Compound frequency optimization'
     ]
   },
   {
     title: 'POSITION MONITORING SYSTEM',
-    description: 'Real-time surveillance of all active positions with military-grade alert systems. Never miss critical market movements or liquidation risks.',
+    description: 'Real-time notifications on your positions across exchanges. Get alerted on funding rate changes, liquidation risks, and performance metrics.',
     specs: [
-      '24/7 POSITION TRACKING',
-      'LIQUIDATION ALERTS',
-      'PERFORMANCE ANALYTICS',
-      'CUSTOM ALERT PARAMETERS'
+      '24/7 position tracking',
+      'Liquidation alerts',
+      'Performance analytics',
+      'Custom alert parameters'
     ]
   },
   {
-    title: 'MULTI-CHAIN DEPLOYMENT',
-    description: 'Seamless deployment across 7+ leading chains with unified command interface. Bridge assets and manage positions from a single control center.',
+    title: 'Arbitrage Scanner',
+    description: 'Advanced opportunity detection engine that continuously scans for profitable spreads across exchanges. Never miss a delta neutral arbitrage opportunity.',
     specs: [
-      'UNIFIED ASSET MANAGEMENT',
-      'CROSS-CHAIN MESSAGING',
-      'BRIDGE AGGREGATION',
-      'CHAIN-SPECIFIC OPTIMIZATION'
+      'Real-time spread monitoring',
+      'Cross-exchange price discovery',
+      'Funding rate arbitrage alerts',
+      'Historical opportunity analysis'
     ]
   }
 ]
 
 const protocols = [
-  { name: 'HYPERLIQUID', active: true },
-  { name: 'DRIFT', active: true },
+  { name: 'Hyperliquid', active: true },
+  { name: 'Drift', active: true },
   { name: 'GMX', active: false },
-  { name: 'PARADEX', active: false },
-  { name: 'LIGHTER', active: false },
+  { name: 'Paradex', active: false },
+  { name: 'Lighter', active: false },
   { name: 'HyperUnit', active: false },
 ]
 
@@ -288,11 +251,10 @@ export const Features: React.FC = () => {
     <FeaturesContainer id="operations">
       <ContentWrapper>
         <SectionHeader>
-          <SectionCode>SECTOR A-7</SectionCode>
-          <SectionTitle>Features</SectionTitle>
+          <SectionTitle>Core Features</SectionTitle>
         </SectionHeader>
         
-        <MissionGrid>
+        <FeatureGrid>
           {missions.map((mission, index) => (
             <MissionBrief
               key={index}
@@ -317,12 +279,11 @@ export const Features: React.FC = () => {
               </MissionSpecs>
             </MissionBrief>
           ))}
-        </MissionGrid>
+        </FeatureGrid>
         
         <VisualizationSection>
           <SectionHeader>
-            <SectionCode>SECTOR B-3</SectionCode>
-            <SectionTitle>NETWORK TOPOLOGY</SectionTitle>
+            <SectionTitle>Exchange Connections</SectionTitle>
           </SectionHeader>
           
           <NetworkVisualization />
@@ -330,8 +291,7 @@ export const Features: React.FC = () => {
         
         
         <SectionHeader>
-          <SectionCode>SECTOR D-2</SectionCode>
-          <SectionTitle>SUPPORTED PROTOCOLS</SectionTitle>
+          <SectionTitle>Supported Exchanges</SectionTitle>
         </SectionHeader>
         
         <ProtocolGrid>
@@ -346,8 +306,12 @@ export const Features: React.FC = () => {
               whileHover={{ scale: 1.05 }}
             >
               <ProtocolName active={protocol.active}>
-                <StatusDot active={protocol.active} />
-                {protocol.name}
+                <EncryptedText 
+                  text={protocol.name} 
+                  active={protocol.active}
+                >
+                  <StatusDot active={protocol.active} />
+                </EncryptedText>
               </ProtocolName>
             </ProtocolCard>
           ))}

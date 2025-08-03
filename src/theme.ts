@@ -12,7 +12,7 @@ export const theme = {
       borderGray: '#333333',
     },
     accent: {
-      militaryGreen: '#00FF41',
+      militaryGreen: '#00CC33',
       terminalGreen: '#00CC33',
       alertAmber: '#CC7722',
       alertRed: '#CC2222',
@@ -50,7 +50,7 @@ export const theme = {
       normal: '0.05em',
       wide: '0.08em',
       wider: '0.10em',
-      widest: '0.12em',
+      widest: '0.10em',
     },
     lineHeight: {
       tight: 1.2,

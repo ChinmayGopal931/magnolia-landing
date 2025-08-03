@@ -99,7 +99,7 @@ export const Footer: React.FC = () => {
       
       <BottomBar>
         <Copyright>
-          PROJECT MAGNOLIA © 2024
+          PROJECT MAGNOLIA © 2025
         </Copyright>
         
         <Links>

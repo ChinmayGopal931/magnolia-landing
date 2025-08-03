@@ -48,8 +48,8 @@ const OperationHeader = styled.div`
 const OperationTitle = styled(motion.h1)`
   font-size: clamp(${theme.typography.fontSize['3xl']}, 5vw, ${theme.typography.fontSize['4xl']});
   font-weight: ${theme.typography.fontWeight.thin};
-  letter-spacing: ${theme.typography.letterSpacing.widest};
-  text-transform: uppercase;
+  letter-spacing: ${theme.typography.letterSpacing.wide};
+  text-transform: none;
   margin: 0;
   
   span {
@@ -58,12 +58,12 @@ const OperationTitle = styled(motion.h1)`
 `
 
 const OperationSubtitle = styled(motion.p)`
-  font-family: ${theme.typography.fontFamily.mono};
-  font-size: ${theme.typography.fontSize.sm};
-  font-weight: ${theme.typography.fontWeight.thin};
-  letter-spacing: ${theme.typography.letterSpacing.wider};
-  color: ${theme.colors.text.tertiary};
-  text-transform: uppercase;
+  font-family: ${theme.typography.fontFamily.primary};
+  font-size: ${theme.typography.fontSize.base};
+  font-weight: ${theme.typography.fontWeight.light};
+  letter-spacing: ${theme.typography.letterSpacing.normal};
+  color: ${theme.colors.text.secondary};
+  text-transform: none;
 `
 
 const StatusGrid = styled.div`
@@ -84,31 +84,18 @@ const StatusCard = styled(motion.div)`
   position: relative;
   overflow: hidden;
   
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: ${theme.colors.accent.militaryGreen};
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: ${theme.transitions.medium};
-  }
-  
-  &:hover::before {
-    transform: scaleX(1);
+  &:hover {
+    border-color: ${theme.colors.accent.militaryGreen};
   }
 `
 
 const StatusLabel = styled.div`
-  font-family: ${theme.typography.fontFamily.mono};
-  font-size: ${theme.typography.fontSize.xs};
-  font-weight: ${theme.typography.fontWeight.thin};
-  letter-spacing: ${theme.typography.letterSpacing.wider};
+  font-family: ${theme.typography.fontFamily.primary};
+  font-size: ${theme.typography.fontSize.sm};
+  font-weight: ${theme.typography.fontWeight.light};
+  letter-spacing: ${theme.typography.letterSpacing.normal};
   color: ${theme.colors.text.tertiary};
-  text-transform: uppercase;
+  text-transform: none;
   margin-bottom: ${theme.spacing.sm};
 `
 
@@ -128,45 +115,30 @@ const CTAContainer = styled.div`
 `
 
 const CTAButton = styled(motion.button)`
-  background: transparent;
+  background: ${theme.colors.accent.militaryGreen};
   border: 1px solid ${theme.colors.accent.militaryGreen};
-  color: ${theme.colors.accent.militaryGreen};
+  color: ${theme.colors.primary.black};
   font-family: ${theme.typography.fontFamily.primary};
   font-size: ${theme.typography.fontSize.sm};
-  font-weight: ${theme.typography.fontWeight.extraLight};
-  letter-spacing: ${theme.typography.letterSpacing.widest};
-  text-transform: uppercase;
+  font-weight: ${theme.typography.fontWeight.light};
+  letter-spacing: ${theme.typography.letterSpacing.wide};
+  text-transform: none;
   padding: ${theme.spacing.md} ${theme.spacing.xl};
   cursor: pointer;
   position: relative;
   overflow: hidden;
   transition: ${theme.transitions.fast};
   
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: ${theme.colors.accent.militaryGreen};
-    transition: ${theme.transitions.medium};
-    z-index: -1;
-  }
-  
   &:hover {
-    color: ${theme.colors.primary.black};
-    
-    &::before {
-      left: 0;
-    }
+    background: transparent;
+    color: ${theme.colors.accent.militaryGreen};
   }
 `
 
 
 export const Hero: React.FC = () => {
   const [stats, setStats] = useState({
-    chains: 7,
+    opportunities: 0,
     tvl: 0,
     positions: 0,
     apy: '0.00'
@@ -175,7 +147,7 @@ export const Hero: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setStats({
-        chains: 7,
+        opportunities: Math.floor(Math.random() * 15) + 3,
         tvl: Math.floor(Math.random() * 1000000000),
         positions: Math.floor(Math.random() * 10000),
         apy: (Math.random() * 50).toFixed(2)
@@ -205,7 +177,20 @@ export const Hero: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            POSITION MANAGEMENT SYSTEM
+            Cross-DEX Position Builder
+          </OperationSubtitle>
+          
+          <OperationSubtitle
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            style={{ 
+              fontSize: theme.typography.fontSize.sm, 
+              color: theme.colors.accent.militaryGreen,
+              marginTop: theme.spacing.sm 
+            }}
+          >
+            Automated arbitrage detection • Real-time funding spreads • Multi-exchange optimization
           </OperationSubtitle>
         </OperationHeader>
         
@@ -215,8 +200,8 @@ export const Hero: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <StatusLabel>CHAINS ACTIVE</StatusLabel>
-            <StatusValue>{stats.chains}</StatusValue>
+            <StatusLabel>Live Arbitrage</StatusLabel>
+            <StatusValue>{stats.opportunities}</StatusValue>
           </StatusCard>
           
           <StatusCard
@@ -224,7 +209,7 @@ export const Hero: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <StatusLabel>TOTAL VALUE LOCKED</StatusLabel>
+            <StatusLabel>Total Value Locked</StatusLabel>
             <StatusValue>${(stats.tvl / 1000000).toFixed(1)}M</StatusValue>
           </StatusCard>
           
@@ -233,7 +218,7 @@ export const Hero: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <StatusLabel>ACTIVE POSITIONS</StatusLabel>
+            <StatusLabel>Active Positions</StatusLabel>
             <StatusValue>{stats.positions.toLocaleString()}</StatusValue>
           </StatusCard>
           
@@ -242,17 +227,21 @@ export const Hero: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <StatusLabel>AVG APY</StatusLabel>
+            <StatusLabel>Average APY</StatusLabel>
             <StatusValue>{stats.apy}%</StatusValue>
           </StatusCard>
         </StatusGrid>
         
         <CTAContainer>
           <CTAButton
+            as="a"
+            href="https://project-magnolia.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Launch APP
+            Launch App
           </CTAButton>
         
         </CTAContainer>

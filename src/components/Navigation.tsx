@@ -27,13 +27,13 @@ const Logo = styled.div`
 
 const LogoText = styled.h1`
   font-size: ${theme.typography.fontSize.lg};
-  font-weight: ${theme.typography.fontWeight.thin};
-  letter-spacing: ${theme.typography.letterSpacing.widest};
+  font-weight: ${theme.typography.fontWeight.light};
+  letter-spacing: ${theme.typography.letterSpacing.normal};
   color: ${theme.colors.text.primary};
   margin: 0;
   
   span {
-    color: ${theme.colors.accent.militaryGreen};
+    color: ${theme.colors.text.secondary};
   }
 `
 
@@ -108,20 +108,20 @@ const StatusItem = styled.div`
   display: flex;
   align-items: center;
   gap: ${theme.spacing.sm};
-  font-family: ${theme.typography.fontFamily.mono};
+  font-family: ${theme.typography.fontFamily.primary};
   font-size: ${theme.typography.fontSize.xs};
-  font-weight: ${theme.typography.fontWeight.thin};
-  letter-spacing: ${theme.typography.letterSpacing.wide};
+  font-weight: ${theme.typography.fontWeight.light};
+  letter-spacing: ${theme.typography.letterSpacing.normal};
   color: ${theme.colors.text.tertiary};
-  text-transform: uppercase;
+  text-transform: none;
 `
 
 const TimeDisplay = styled.div`
   font-family: ${theme.typography.fontFamily.mono};
   font-size: ${theme.typography.fontSize.xs};
   font-weight: ${theme.typography.fontWeight.thin};
-  letter-spacing: ${theme.typography.letterSpacing.wide};
-  color: ${theme.colors.accent.militaryGreen};
+  letter-spacing: ${theme.typography.letterSpacing.normal};
+  color: ${theme.colors.text.secondary};
 `
 
 export const Navigation: React.FC = () => {
@@ -139,8 +139,7 @@ export const Navigation: React.FC = () => {
     const hours = date.getHours().toString().padStart(2, '0')
     const minutes = date.getMinutes().toString().padStart(2, '0')
     const seconds = date.getSeconds().toString().padStart(2, '0')
-    const milliseconds = Math.floor(date.getMilliseconds() / 10).toString().padStart(2, '0')
-    return `${hours}:${minutes}:${seconds}:${milliseconds}`
+    return `${hours}:${minutes}:${seconds}`
   }
   
   return (
@@ -156,7 +155,7 @@ export const Navigation: React.FC = () => {
       <SystemStatus>
         <StatusItem>
           <StatusIndicator status="active" />
-          <span>SYSTEM OPERATIONAL</span>
+          <span>Live on Testnet</span>
         </StatusItem>
         <TimeDisplay>{formatTime(currentTime)}</TimeDisplay>
       </SystemStatus>
