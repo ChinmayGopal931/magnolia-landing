@@ -188,7 +188,7 @@ export const Navigation: React.FC = () => {
       <NavContainer>
         <Logo>
           <StatusIndicator status="active" />
-          <LogoText>DeFi<span>-</span>Builder</LogoText>
+          <LogoText>Position<span>-</span>Builder</LogoText>
         </Logo>
         
         <NavLinks>
