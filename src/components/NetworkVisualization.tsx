@@ -183,6 +183,40 @@ export const NetworkVisualization: React.FC = () => {
           )
         })}
         
+        {/* Bridging powered by LiFi text - top right */}
+        <g>
+          <rect
+            x="680"
+            y="12"
+            width="305"
+            height="30"
+            fill={theme.colors.primary.black}
+            opacity="0.9"
+            rx="2"
+          />
+          <text
+            x="695"
+            y="30"
+            textAnchor="start"
+            fill={theme.colors.accent.militaryGreen}
+            fontSize={isMobile ? "10" : "12"}
+            fontFamily={theme.typography.fontFamily.mono}
+            fontWeight={theme.typography.fontWeight.regular}
+            letterSpacing={theme.typography.letterSpacing.wide}
+            opacity="1"
+          >
+            BRIDGING POWERED BY LIFI
+          </text>
+          <image
+            href="/logo_lifi_dark.svg"
+            x="895"
+            y="18"
+            width="55"
+            height="18"
+            opacity="1"
+          />
+        </g>
+        
         {nodes.map(node => (
           <g key={node.id}>
             <motion.circle
