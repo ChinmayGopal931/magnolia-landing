@@ -116,9 +116,12 @@ export const NetworkVisualization: React.FC = () => {
     })
   }, [])
   
+  // Adjust viewBox for mobile
+  const viewBox = isMobile ? "100 0 800 400" : "0 0 1000 400"
+  
   return (
     <SVGContainer>
-      <StyledSVG ref={svgRef} viewBox="0 0 1000 400" style={{ position: 'relative' }}>
+      <StyledSVG ref={svgRef} viewBox={viewBox} style={{ position: 'relative' }}>
         <defs>
           <filter id="glow">
             <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -154,8 +157,8 @@ export const NetworkVisualization: React.FC = () => {
                 x2={toNode.x}
                 y2={toNode.y}
                 stroke={theme.colors.secondary.borderGray}
-                strokeWidth="2"
-                opacity="0.4"
+                strokeWidth={isMobile ? "3" : "2"}
+                opacity={isMobile ? "0.5" : "0.4"}
               />
               {!isMobile && (
                 <motion.circle
@@ -186,17 +189,17 @@ export const NetworkVisualization: React.FC = () => {
         {/* Bridging powered by LiFi text - top right */}
         <g>
           <rect
-            x="680"
+            x={isMobile ? "560" : "680"}
             y="12"
-            width="305"
-            height="30"
+            width={isMobile ? "280" : "305"}
+            height={isMobile ? "26" : "30"}
             fill={theme.colors.primary.black}
             opacity="0.9"
             rx="2"
           />
           <text
-            x="695"
-            y="30"
+            x={isMobile ? "570" : "695"}
+            y={isMobile ? "28" : "30"}
             textAnchor="start"
             fill={theme.colors.accent.militaryGreen}
             fontSize={isMobile ? "10" : "12"}
@@ -209,10 +212,10 @@ export const NetworkVisualization: React.FC = () => {
           </text>
           <image
             href="/logo_lifi_dark.svg"
-            x="895"
-            y="18"
-            width="55"
-            height="18"
+            x={isMobile ? "775" : "895"}
+            y={isMobile ? "16" : "18"}
+            width={isMobile ? "45" : "55"}
+            height={isMobile ? "14" : "18"}
             opacity="1"
           />
         </g>
@@ -222,14 +225,14 @@ export const NetworkVisualization: React.FC = () => {
             <motion.circle
               cx={node.x}
               cy={node.y}
-              r="30"
+              r={isMobile ? "35" : "30"}
               fill="none"
               stroke={node.active ? theme.colors.accent.militaryGreen : hoveredNode === node.id ? theme.colors.accent.militaryGreen : theme.colors.secondary.borderGray}
-              strokeWidth="1"
-              opacity={node.active ? "0.8" : hoveredNode === node.id ? "0.6" : "0.3"}
+              strokeWidth={isMobile ? "2" : "1"}
+              opacity={node.active ? "0.8" : hoveredNode === node.id ? "0.6" : isMobile ? "0.4" : "0.3"}
               filter={node.active ? "url(#glow)" : "none"}
               animate={{
-                r: node.active ? [30, 35, 30] : hoveredNode === node.id ? 32 : 30,
+                r: node.active ? (isMobile ? [35, 40, 35] : [30, 35, 30]) : hoveredNode === node.id ? (isMobile ? 37 : 32) : (isMobile ? 35 : 30),
               }}
               transition={{
                 duration: 2,
@@ -243,7 +246,7 @@ export const NetworkVisualization: React.FC = () => {
             <circle
               cx={node.x}
               cy={node.y}
-              r="25"
+              r={isMobile ? "30" : "25"}
               fill={theme.colors.primary.black}
               opacity="0.8"
               style={{ cursor: !node.active ? 'pointer' : 'default' }}
