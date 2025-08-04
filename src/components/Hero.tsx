@@ -13,6 +13,15 @@ const HeroContainer = styled.section`
   padding: ${theme.spacing['4xl']} ${theme.spacing['2xl']};
   margin-top: 60px;
   overflow: hidden;
+  
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: ${theme.spacing['2xl']} ${theme.spacing.lg};
+    min-height: calc(100vh - 60px);
+  }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    padding: ${theme.spacing.xl} ${theme.spacing.md};
+  }
 `
 
 const BackgroundGrid = styled.div`
@@ -22,10 +31,10 @@ const BackgroundGrid = styled.div`
   right: 0;
   bottom: 0;
   background-image: 
-    linear-gradient(rgba(0, 255, 65, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 65, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
   background-size: 50px 50px;
-  opacity: 0.5;
+  opacity: 0.7;
 `
 
 
@@ -74,6 +83,13 @@ const StatusGrid = styled.div`
   
   @media (max-width: ${theme.breakpoints.md}) {
     grid-template-columns: repeat(2, 1fr);
+    gap: ${theme.spacing.md};
+    margin-bottom: ${theme.spacing['2xl']};
+  }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    grid-template-columns: 1fr;
+    gap: ${theme.spacing.sm};
   }
 `
 
@@ -83,9 +99,19 @@ const StatusCard = styled(motion.div)`
   padding: ${theme.spacing.lg};
   position: relative;
   overflow: hidden;
+  min-height: 44px;
   
   &:hover {
     border-color: ${theme.colors.accent.militaryGreen};
+  }
+  
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: ${theme.spacing.md};
+  }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    padding: ${theme.spacing.sm} ${theme.spacing.md};
+    min-height: 60px;
   }
 `
 
@@ -101,7 +127,7 @@ const StatusLabel = styled.div`
 
 const StatusValue = styled.div`
   font-family: ${theme.typography.fontFamily.mono};
-  font-size: ${theme.typography.fontSize['2xl']};
+  font-size: clamp(${theme.typography.fontSize.lg}, 4vw, ${theme.typography.fontSize['2xl']});
   font-weight: ${theme.typography.fontWeight.thin};
   letter-spacing: ${theme.typography.letterSpacing.wide};
   color: ${theme.colors.accent.militaryGreen};
@@ -112,6 +138,13 @@ const CTAContainer = styled.div`
   gap: ${theme.spacing.lg};
   justify-content: center;
   margin-top: ${theme.spacing['3xl']};
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    flex-direction: column;
+    align-items: center;
+    gap: ${theme.spacing.md};
+    margin-top: ${theme.spacing['2xl']};
+  }
 `
 
 const CTAButton = styled(motion.button)`
@@ -128,15 +161,25 @@ const CTAButton = styled(motion.button)`
   position: relative;
   overflow: hidden;
   transition: ${theme.transitions.fast};
+  min-height: 44px;
+  min-width: 120px;
   
   &:hover {
     background: transparent;
     color: ${theme.colors.accent.militaryGreen};
   }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    padding: ${theme.spacing.lg} ${theme.spacing['2xl']};
+    min-height: 48px;
+    width: 100%;
+    max-width: 280px;
+    font-size: ${theme.typography.fontSize.base};
+  }
 `
 
 
-export const Hero: React.FC = () => {
+const Hero: React.FC = () => {
   const [stats, setStats] = useState({
     opportunities: 0,
     tvl: 0,
@@ -249,3 +292,6 @@ export const Hero: React.FC = () => {
     </HeroContainer>
   )
 }
+
+export default Hero
+export { Hero }

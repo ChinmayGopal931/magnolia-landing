@@ -23,16 +23,42 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
   const [displayText, setDisplayText] = useState(text)
   const [isHovered, setIsHovered] = useState(false)
   const intervalRef = useRef<number | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
   
   const chars = '!@#$%^&*()_+-={}[]|:;<>,.?/~`0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
   
   useEffect(() => {
-    if (!active && isHovered) {
+    // Disable animation on mobile for better performance
+    if (isMobile) {
+      setDisplayText(isHovered ? revealText : text)
+      return
+    }
+    
+    // Clear any existing interval
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+    }
+    
+    // If active prop is true, just show the text without animation
+    if (active) {
+      setDisplayText(text)
+      return
+    }
+    
+    // Only animate on hover state changes
+    if (isHovered) {
+      // Animate to reveal text
       let iteration = 0
       const targetText = revealText
-      const originalLength = text.length
-      const targetLength = targetText.length
-      const maxLength = Math.max(originalLength, targetLength)
       
       intervalRef.current = setInterval(() => {
         setDisplayText(
@@ -45,22 +71,17 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
               return chars[Math.floor(Math.random() * chars.length)]
             })
             .join('')
-            .padEnd(maxLength, chars[Math.floor(Math.random() * chars.length)])
-            .slice(0, maxLength)
         )
         
-        if (iteration >= targetLength) {
+        if (iteration >= targetText.length) {
           clearInterval(intervalRef.current!)
           setDisplayText(targetText)
         }
         
-        iteration += 1/3
-      }, 30)
-      
-      return () => {
-        if (intervalRef.current) clearInterval(intervalRef.current)
-      }
-    } else if (!active && !isHovered) {
+        iteration += 0.5 // Faster animation
+      }, 60) // Slightly slower interval for better performance
+    } else {
+      // Animate back to original text
       let iteration = 0
       const targetText = text
       
@@ -82,16 +103,14 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
           setDisplayText(targetText)
         }
         
-        iteration += 1/3
-      }, 30)
-      
-      return () => {
-        if (intervalRef.current) clearInterval(intervalRef.current)
-      }
-    } else if (active) {
-      setDisplayText(text)
+        iteration += 0.5 // Faster animation
+      }, 60) // Slightly slower interval for better performance
     }
-  }, [isHovered, text, revealText, active, chars])
+    
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current)
+    }
+  }, [isHovered, text, revealText, active, chars, isMobile])
   
   return (
     <Container

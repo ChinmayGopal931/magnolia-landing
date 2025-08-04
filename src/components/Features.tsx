@@ -10,6 +10,14 @@ const FeaturesContainer = styled.section`
   background: ${theme.colors.primary.darkBlack};
   position: relative;
   overflow: hidden;
+  
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: ${theme.spacing['2xl']} ${theme.spacing.lg};
+  }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    padding: ${theme.spacing.xl} ${theme.spacing.md};
+  }
 `
 
 const ContentWrapper = styled.div`
@@ -24,7 +32,7 @@ const SectionHeader = styled.div`
 
 
 const SectionTitle = styled.h2`
-  font-size: ${theme.typography.fontSize['3xl']};
+  font-size: clamp(${theme.typography.fontSize['2xl']}, 5vw, ${theme.typography.fontSize['3xl']});
   font-weight: ${theme.typography.fontWeight.thin};
   letter-spacing: ${theme.typography.letterSpacing.wider};
   text-transform: uppercase;
@@ -39,6 +47,12 @@ const SectionTitle = styled.h2`
     background: ${theme.colors.accent.militaryGreen};
     margin-top: ${theme.spacing.md};
   }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    &::after {
+      width: 60px;
+    }
+  }
 `
 
 const FeatureGrid = styled.div`
@@ -49,6 +63,12 @@ const FeatureGrid = styled.div`
   
   @media (max-width: ${theme.breakpoints.lg}) {
     grid-template-columns: 1fr;
+    gap: ${theme.spacing.xl};
+    margin-bottom: ${theme.spacing['2xl']};
+  }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    gap: ${theme.spacing.lg};
   }
 `
 
@@ -61,6 +81,14 @@ const MissionBrief = styled(motion.div)`
   
   &:hover {
     border-color: ${theme.colors.accent.militaryGreen};
+  }
+  
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: ${theme.spacing.lg};
+  }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    padding: ${theme.spacing.md};
   }
 `
 
@@ -79,6 +107,12 @@ const MissionIcon = styled.div`
   justify-content: center;
   border: 1px solid ${theme.colors.secondary.borderGray};
   border-radius: 4px;
+  flex-shrink: 0;
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    width: 44px;
+    height: 44px;
+  }
 `
 
 const MissionIconInner = styled.div`
@@ -90,12 +124,13 @@ const MissionIconInner = styled.div`
 `
 
 const MissionTitle = styled.h3`
-  font-size: ${theme.typography.fontSize.lg};
+  font-size: clamp(${theme.typography.fontSize.base}, 3vw, ${theme.typography.fontSize.lg});
   font-weight: ${theme.typography.fontWeight.extraLight};
   letter-spacing: ${theme.typography.letterSpacing.wider};
   text-transform: uppercase;
   color: ${theme.colors.text.primary};
   margin: 0;
+  line-height: 1.3;
 `
 
 const MissionDescription = styled.p`
@@ -103,6 +138,11 @@ const MissionDescription = styled.p`
   line-height: ${theme.typography.lineHeight.relaxed};
   color: ${theme.colors.text.secondary};
   margin: 0;
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    font-size: ${theme.typography.fontSize.base};
+    line-height: 1.6;
+  }
 `
 
 const MissionSpecs = styled.ul`
@@ -137,7 +177,17 @@ const ProtocolGrid = styled.div`
   margin-top: ${theme.spacing['3xl']};
   
   @media (max-width: ${theme.breakpoints.lg}) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media (max-width: ${theme.breakpoints.md}) {
     grid-template-columns: repeat(2, 1fr);
+    gap: ${theme.spacing.sm};
+    margin-top: ${theme.spacing['2xl']};
+  }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    grid-template-columns: 1fr;
   }
 `
 
@@ -148,6 +198,10 @@ const ProtocolCard = styled(motion.div)<{ active?: boolean }>`
   text-align: center;
   position: relative;
   overflow: hidden;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
   &::before {
     content: '';
@@ -171,11 +225,16 @@ const ProtocolCard = styled(motion.div)<{ active?: boolean }>`
     opacity: 0.1;
     transform: translateX(100%);
   }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    padding: ${theme.spacing.md} ${theme.spacing.sm};
+    min-height: 60px;
+  }
 `
 
 const ProtocolName = styled.div<{ active?: boolean }>`
   font-family: ${theme.typography.fontFamily.mono};
-  font-size: ${theme.typography.fontSize.sm};
+  font-size: clamp(${theme.typography.fontSize.xs}, 2.5vw, ${theme.typography.fontSize.sm});
   font-weight: ${theme.typography.fontWeight.thin};
   letter-spacing: ${theme.typography.letterSpacing.wider};
   color: ${props => props.active ? theme.colors.accent.militaryGreen : theme.colors.text.primary};
@@ -184,6 +243,7 @@ const ProtocolName = styled.div<{ active?: boolean }>`
   align-items: center;
   justify-content: center;
   gap: ${theme.spacing.sm};
+  flex-wrap: wrap;
 `
 
 const StatusDot = styled.div<{ active?: boolean }>`
@@ -246,7 +306,7 @@ const protocols = [
   { name: 'HyperUnit', active: false },
 ]
 
-export const Features: React.FC = () => {
+const Features: React.FC = () => {
   return (
     <FeaturesContainer id="operations">
       <ContentWrapper>
@@ -320,3 +380,6 @@ export const Features: React.FC = () => {
     </FeaturesContainer>
   )
 }
+
+export default Features
+export { Features }

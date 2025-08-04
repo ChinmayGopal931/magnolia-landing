@@ -14,9 +14,69 @@ const NavContainer = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 ${theme.spacing['2xl']};
+  padding: 0 ${theme.spacing.md};
   backdrop-filter: blur(10px);
   background: rgba(10, 10, 10, 0.95);
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    padding: 0 ${theme.spacing.xl};
+  }
+  
+  @media (min-width: ${theme.breakpoints.lg}) {
+    padding: 0 ${theme.spacing['2xl']};
+  }
+`
+
+const HamburgerButton = styled.button`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 24px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    display: none;
+  }
+  
+  span {
+    width: 100%;
+    height: 2px;
+    background: ${theme.colors.text.primary};
+    transition: ${theme.transitions.fast};
+    transform-origin: 1px;
+    
+    &:nth-child(1) {
+      transform: ${props => props['aria-expanded'] === 'true' ? 'rotate(45deg)' : 'rotate(0)'};
+    }
+    
+    &:nth-child(2) {
+      opacity: ${props => props['aria-expanded'] === 'true' ? '0' : '1'};
+    }
+    
+    &:nth-child(3) {
+      transform: ${props => props['aria-expanded'] === 'true' ? 'rotate(-45deg)' : 'rotate(0)'};
+    }
+  }
+`
+
+const MobileMenu = styled.div<{ isOpen: boolean }>`
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 10, 0.98);
+  transform: ${props => props.isOpen ? 'translateX(0)' : 'translateX(-100%)'};
+  transition: ${theme.transitions.medium};
+  padding: ${theme.spacing.lg};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    display: none;
+  }
 `
 
 const Logo = styled.div`
@@ -26,11 +86,15 @@ const Logo = styled.div`
 `
 
 const LogoText = styled.h1`
-  font-size: ${theme.typography.fontSize.lg};
+  font-size: ${theme.typography.fontSize.base};
   font-weight: ${theme.typography.fontWeight.light};
   letter-spacing: ${theme.typography.letterSpacing.normal};
   color: ${theme.colors.text.primary};
   margin: 0;
+  
+  @media (min-width: ${theme.breakpoints.sm}) {
+    font-size: ${theme.typography.fontSize.lg};
+  }
   
   span {
     color: ${theme.colors.text.secondary};
@@ -71,9 +135,13 @@ const NavLinks = styled.div`
 
 
 const SystemStatus = styled.div`
-  display: flex;
+  display: none;
   align-items: center;
   gap: ${theme.spacing.lg};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    display: flex;
+  }
 `
 
 const StatusItem = styled.div`
@@ -98,11 +166,12 @@ const TimeDisplay = styled.div`
 
 export const Navigation: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date())
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date())
-    }, 100)
+    }, 1000) // Reduced frequency for better performance
     
     return () => clearInterval(timer)
   }, [])
@@ -115,22 +184,42 @@ export const Navigation: React.FC = () => {
   }
   
   return (
-    <NavContainer>
-      <Logo>
-        <StatusIndicator status="active" />
-        <LogoText>Project<span>-</span>magnolia</LogoText>
-      </Logo>
+    <>
+      <NavContainer>
+        <Logo>
+          <StatusIndicator status="active" />
+          <LogoText>DeFi<span>-</span>Builder</LogoText>
+        </Logo>
+        
+        <NavLinks>
+        </NavLinks>
+        
+        <SystemStatus>
+          <StatusItem>
+            <StatusIndicator status="active" />
+            <span>Live on Testnet</span>
+          </StatusItem>
+          <TimeDisplay>{formatTime(currentTime)}</TimeDisplay>
+        </SystemStatus>
+        
+        <HamburgerButton
+          aria-expanded={isMobileMenuOpen ? 'true' : 'false'}
+          aria-label="Toggle mobile menu"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <span />
+          <span />
+          <span />
+        </HamburgerButton>
+      </NavContainer>
       
-      <NavLinks>
-      </NavLinks>
-      
-      <SystemStatus>
+      <MobileMenu isOpen={isMobileMenuOpen}>
         <StatusItem>
           <StatusIndicator status="active" />
           <span>Live on Testnet</span>
         </StatusItem>
         <TimeDisplay>{formatTime(currentTime)}</TimeDisplay>
-      </SystemStatus>
-    </NavContainer>
+      </MobileMenu>
+    </>
   )
 }

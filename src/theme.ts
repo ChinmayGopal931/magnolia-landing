@@ -10,6 +10,7 @@ export const theme = {
       darkGray: '#242424',
       mediumGray: '#2D2D2D',
       borderGray: '#333333',
+      charcoal: '#1E1E1E',
     },
     accent: {
       militaryGreen: '#00CC33',
@@ -44,6 +45,7 @@ export const theme = {
       extraLight: 200,
       light: 300,
       regular: 400,
+      normal: 400,
     },
     letterSpacing: {
       tight: '0.02em',

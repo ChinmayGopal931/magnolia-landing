@@ -49,6 +49,11 @@ const NoiseOverlay = styled.div`
   opacity: 0.015;
   z-index: 1;
   
+  /* Disable noise effect on mobile for performance */
+  @media (max-width: ${theme.breakpoints.md}) {
+    display: none;
+  }
+  
   &::before {
     content: '';
     position: absolute;
@@ -57,7 +62,8 @@ const NoiseOverlay = styled.div`
     right: -100%;
     bottom: -100%;
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSI+CiAgICA8ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjQiIHNlZWQ9IjUiLz4KICAgIDxmZUNvbG9yTWF0cml4IHR5cGU9InNhdHVyYXRlIiB2YWx1ZXM9IjAiLz4KICA8L2ZpbHRlcj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIxIi8+Cjwvc3ZnPg==');
-    animation: ${noiseAnimation} 0.2s steps(10) infinite;
+    animation: ${noiseAnimation} 1s steps(10) infinite;
+    will-change: transform;
   }
 `
 
@@ -153,7 +159,7 @@ const CornerBrackets = styled.div`
   }
 `
 
-export const ScanEffects: React.FC = () => {
+const ScanEffects: React.FC = () => {
   return (
     <>
       <NoiseOverlay />
@@ -165,3 +171,6 @@ export const ScanEffects: React.FC = () => {
     </>
   )
 }
+
+export default ScanEffects
+export { ScanEffects }

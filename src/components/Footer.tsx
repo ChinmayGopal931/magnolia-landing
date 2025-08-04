@@ -81,7 +81,7 @@ const Link = styled.a`
   }
 `
 
-export const Footer: React.FC = () => {
+const Footer: React.FC = () => {
   return (
     <FooterContainer>
       <FooterContent>
@@ -109,3 +109,6 @@ export const Footer: React.FC = () => {
     </FooterContainer>
   )
 }
+
+export default Footer
+export { Footer }

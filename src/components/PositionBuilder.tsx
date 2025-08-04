@@ -7,6 +7,14 @@ const BuilderContainer = styled.section`
   padding: ${theme.spacing['4xl']} ${theme.spacing['2xl']};
   background: ${theme.colors.primary.black};
   position: relative;
+  
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: ${theme.spacing['2xl']} ${theme.spacing.lg};
+  }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    padding: ${theme.spacing.xl} ${theme.spacing.md};
+  }
 `
 
 const ContentWrapper = styled.div`
@@ -20,7 +28,7 @@ const SectionHeader = styled.div`
 `
 
 const SectionTitle = styled.h2`
-  font-size: ${theme.typography.fontSize['2xl']};
+  font-size: clamp(${theme.typography.fontSize.xl}, 4vw, ${theme.typography.fontSize['2xl']});
   font-weight: ${theme.typography.fontWeight.light};
   letter-spacing: ${theme.typography.letterSpacing.normal};
   text-transform: none;
@@ -35,6 +43,12 @@ const SectionTitle = styled.h2`
     background: ${theme.colors.secondary.borderGray};
     margin: ${theme.spacing.md} auto 0;
   }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    &::after {
+      width: 40px;
+    }
+  }
 `
 
 const SectionSubtitle = styled.p`
@@ -45,6 +59,12 @@ const SectionSubtitle = styled.p`
   margin-left: auto;
   margin-right: auto;
   line-height: 1.6;
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    font-size: ${theme.typography.fontSize.sm};
+    max-width: 100%;
+    padding: 0 ${theme.spacing.sm};
+  }
 `
 
 const ChartsGrid = styled.div`
@@ -52,6 +72,17 @@ const ChartsGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: ${theme.spacing['2xl']};
   margin-top: ${theme.spacing['3xl']};
+  
+  @media (max-width: ${theme.breakpoints.lg}) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: ${theme.spacing.xl};
+  }
+  
+  @media (max-width: ${theme.breakpoints.md}) {
+    grid-template-columns: 1fr;
+    gap: ${theme.spacing.lg};
+    margin-top: ${theme.spacing['2xl']};
+  }
 `
 
 const ChartCard = styled(motion.div)`
@@ -59,19 +90,34 @@ const ChartCard = styled(motion.div)`
   border: 1px solid ${theme.colors.secondary.borderGray};
   padding: ${theme.spacing.xl};
   position: relative;
+  
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: ${theme.spacing.lg};
+  }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    padding: ${theme.spacing.md};
+  }
 `
 
 const ChartTitle = styled.h3`
-  font-size: ${theme.typography.fontSize.lg};
+  font-size: clamp(${theme.typography.fontSize.base}, 3vw, ${theme.typography.fontSize.lg});
   font-weight: ${theme.typography.fontWeight.light};
   color: ${theme.colors.text.primary};
   margin-bottom: ${theme.spacing.sm};
+  line-height: 1.3;
 `
 
 const ChartDescription = styled.p`
   font-size: ${theme.typography.fontSize.sm};
   color: ${theme.colors.text.tertiary};
   margin-bottom: ${theme.spacing.lg};
+  line-height: 1.5;
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    font-size: ${theme.typography.fontSize.xs};
+    margin-bottom: ${theme.spacing.md};
+  }
 `
 
 const ChartContainer = styled.div`
@@ -79,11 +125,29 @@ const ChartContainer = styled.div`
   height: 250px;
   position: relative;
   margin-top: ${theme.spacing.lg};
+  overflow-x: auto;
+  
+  @media (max-width: ${theme.breakpoints.md}) {
+    height: 220px;
+  }
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    height: 200px;
+    margin-top: ${theme.spacing.md};
+  }
 `
 
 const ChartSVG = styled.svg`
   width: 100%;
   height: 100%;
+  min-width: 300px;
+  
+  /* Make text more readable on mobile */
+  text {
+    @media (max-width: ${theme.breakpoints.sm}) {
+      font-size: 12px;
+    }
+  }
 `
 
 const LegendContainer = styled.div`
@@ -91,6 +155,12 @@ const LegendContainer = styled.div`
   gap: ${theme.spacing.lg};
   margin-top: ${theme.spacing.md};
   justify-content: center;
+  flex-wrap: wrap;
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    gap: ${theme.spacing.md};
+    justify-content: center;
+  }
 `
 
 const LegendItem = styled.div`
@@ -99,6 +169,12 @@ const LegendItem = styled.div`
   gap: ${theme.spacing.sm};
   font-size: ${theme.typography.fontSize.xs};
   color: ${theme.colors.text.secondary};
+  white-space: nowrap;
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    font-size: 10px;
+    gap: 6px;
+  }
 `
 
 const LegendDot = styled.div<{ color: string }>`
@@ -106,6 +182,12 @@ const LegendDot = styled.div<{ color: string }>`
   height: 8px;
   background: ${props => props.color};
   border-radius: 50%;
+  flex-shrink: 0;
+  
+  @media (max-width: ${theme.breakpoints.sm}) {
+    width: 10px;
+    height: 10px;
+  }
 `
 
 // Generate smooth curve data
@@ -133,7 +215,7 @@ const pointsToPath = (points: { x: number; y: number }[]) => {
   return path
 }
 
-export const PositionBuilder: React.FC = () => {
+const PositionBuilder: React.FC = () => {
   // Generate curves for different scenarios
   const driftCurve = generateSmoothCurve(50, 30, 60, 1.2)
   const hyperliquidCurve = generateSmoothCurve(50, 25, 40, 1.2)
@@ -380,3 +462,6 @@ export const PositionBuilder: React.FC = () => {
     </BuilderContainer>
   )
 }
+
+export default PositionBuilder
+export { PositionBuilder }
