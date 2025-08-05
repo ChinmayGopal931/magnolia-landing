@@ -191,7 +191,7 @@ export const QuantTools: React.FC = () => {
         <SectionHeader>
           <SectionTitle>Be Your Own Quant</SectionTitle>
           <SectionSubtitle>
-            Professional-grade tools that let you analyze, execute, and manage complex 
+            Providing Tools that let you analyze, execute, and manage complex 
             trading strategies without writing a single line of code.
           </SectionSubtitle>
         </SectionHeader>
