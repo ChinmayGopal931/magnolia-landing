@@ -182,18 +182,18 @@ const CTAButton = styled(motion.button)`
 const Hero: React.FC = () => {
   const [stats, setStats] = useState({
     opportunities: 0,
-    tvl: 0,
-    positions: 0,
-    apy: '0.00'
+    dexes: 3,
+    positions: 8,
+    pairs: 46
   })
   
   useEffect(() => {
     const interval = setInterval(() => {
       setStats({
         opportunities: Math.floor(Math.random() * 15) + 3,
-        tvl: Math.floor(Math.random() * 1000000000),
-        positions: Math.floor(Math.random() * 10000),
-        apy: (Math.random() * 50).toFixed(2)
+        dexes: 3,
+        positions: 8,
+        pairs: 46
       })
     }, 3000)
     
@@ -252,8 +252,8 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <StatusLabel>Total Value Locked</StatusLabel>
-            <StatusValue>${(stats.tvl / 1000000).toFixed(1)}M</StatusValue>
+            <StatusLabel>Total DEXes</StatusLabel>
+            <StatusValue>{stats.dexes}</StatusValue>
           </StatusCard>
           
           <StatusCard
@@ -262,7 +262,7 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             <StatusLabel>Active Positions</StatusLabel>
-            <StatusValue>{stats.positions.toLocaleString()}</StatusValue>
+            <StatusValue>{stats.positions}</StatusValue>
           </StatusCard>
           
           <StatusCard
@@ -270,8 +270,8 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <StatusLabel>Average APY</StatusLabel>
-            <StatusValue>{stats.apy}%</StatusValue>
+            <StatusLabel>Potential Pairs</StatusLabel>
+            <StatusValue>{stats.pairs}</StatusValue>
           </StatusCard>
         </StatusGrid>
         
