@@ -1,0 +1,20 @@
+{
+  "name": "Project Magnolia - Cross-DEX Position Builder",
+  "short_name": "Magnolia",
+  "description": "Automated arbitrage detection and cross-DEX position building platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060606",
+  "theme_color": "#00CC33",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "productivity"],
+  "lang": "en-US"
+}
