@@ -24,18 +24,18 @@ const HeroContainer = styled.section`
   }
 `
 
-const BackgroundGrid = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
-  opacity: 0.7;
-`
+// const BackgroundGrid = styled.div`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   background-image: 
+//     linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+//     linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+//   background-size: 50px 50px;
+//   opacity: 0.7;
+// `
 
 
 
