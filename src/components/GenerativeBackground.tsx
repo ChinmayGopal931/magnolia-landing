@@ -24,7 +24,7 @@ const BackgroundCanvas = styled.canvas`
 
 const GenerativeBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationRef = useRef<number>()
+  const animationRef = useRef<number>(0)
   const timeRef = useRef(0)
 
   const mountainData = useMemo(() => {
