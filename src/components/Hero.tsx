@@ -201,10 +201,7 @@ const Hero: React.FC = () => {
   }, [])
   
   return (
-    <HeroContainer>
-      <BackgroundGrid />
-      
-      
+    <HeroContainer>      
       <MainContent>
         <OperationHeader>
           <OperationTitle

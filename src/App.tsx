@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { GlobalStyles } from './GlobalStyles'
-import { Navigation } from './components'
+import { Navigation, GenerativeBackground } from './components'
 import styled from 'styled-components'
 import { theme } from './theme'
 
@@ -22,15 +22,32 @@ const LoadingFallback = styled.div`
   font-size: ${theme.typography.fontSize.sm};
 `
 
+const AppContainer = styled.div`
+  position: relative;
+`
+
+const BackgroundOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 150vh;
+  z-index: 0;
+  pointer-events: none;
+`
+
 function App() {
   return (
-    <>
+    <AppContainer>
       <GlobalStyles />
+      <BackgroundOverlay>
+        <GenerativeBackground />
+      </BackgroundOverlay>
       <Suspense fallback={null}>
         <ScanEffects />
       </Suspense>
       <Navigation />
-      <main>
+      <main style={{ position: 'relative', zIndex: 10 }}>
         <Suspense fallback={<LoadingFallback>Loading...</LoadingFallback>}>
           <Hero />
           <Features />
@@ -40,7 +57,7 @@ function App() {
       <Suspense fallback={null}>
         <Footer />
       </Suspense>
-    </>
+    </AppContainer>
   )
 }
 
